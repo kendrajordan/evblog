@@ -1,0 +1,68 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+@import url('https://fonts.googleapis.com/css?family=Electrolize');
+.navbar-brand,h1.display-4,h2.text-center,p{
+ font-family: 'Electrolize', sans-serif;
+}
+.newev{
+ background-color: #D0E6F0;
+}
+div.container-fluid{
+ padding-right:0;
+ padding-left: 0;
+}
+a:hover{
+ text-decoration: none;
+}
+.currentev{
+ background-color: #8EBAB9;
+}
+nav a{
+ color: #FFECDB;
+}
+.why{
+ background-image: url(https://es-cms-prod.s3.amazonaws.com/filer/b6/0d/b60dea8e-880f-41af-96e0-1e6c8fed30e8/33-top.png);
+ background-repeat: no-repeat;
+ background-size: 100% 100%;
+ height: 370px;
+ color: #FFECDB;
+}
+.compare{
+ background-image: url(http://prod-upp-image-read.ft.com/b8390c16-6ec7-11e6-a0c9-1365ce54b926);
+ background-repeat: no-repeat;
+ background-size: 100% 100%;
+ height: 370px;
+ color: #FFECDB;
+}
+.faq{
+ background-image: url(https://article.images.consumerreports.org/prod/content/dam/cro/news_articles/cars/2014-Ford-Focus-Electric-side-plug);
+ background-repeat: no-repeat;
+ background-size: 100% 100%;
+ background-position: center;
+ color: #FFECDB;
+ height: 370px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+.faqtext{
+ display: flex;
+  flex-direction:column;
+  align-items:center;
+}
+p.lead{
+ font-size: 2rem;
+}
