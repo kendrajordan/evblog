@@ -30,7 +30,7 @@ class User extends Authenticatable
     public function costs(){
       return $this->hasMany('\App\Cost');
     }
-    public function  charge_sessions(){
+    public function charge_sessions(){
       return $this->hasMany('\App\Charge_session');
     }
 

@@ -29,3 +29,7 @@ Route::get('/electricdrift/faq', function(){
 Route::get('/electricdrift/fuel_comparison',function(){
   return view('electricdrift.fuel_comparison');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

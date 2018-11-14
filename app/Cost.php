@@ -11,6 +11,6 @@ class Cost extends Model
     return $this->belongsTo('\App\User');
   }
   public function charge_sessions(){
-      return $this->belongsToMany('\App\Charge_session');
+      return $this->hasMany('\App\Charge_session');
     }
 }
