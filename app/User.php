@@ -27,4 +27,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function costs(){
+      return $this->hasMany('\App\Cost');
+    }
+    public function  charge_sessions(){
+      return $this->hasMany('\App\Charge_session');
+    }
+
 }
