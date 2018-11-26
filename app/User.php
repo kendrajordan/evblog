@@ -27,11 +27,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function costs(){
-      return $this->hasMany('\App\Cost');
+    public function driving_habit(){
+      return $this->hasOne('\App\Driving_habit');
     }
-    public function charge_sessions(){
-      return $this->hasMany('\App\Charge_session');
+    public function chargers(){
+      return $this->hasMany('\App\Charger');
+    }
+    public function car_chargers(){
+      return $this->hasMany('\App\Charger');
+    }
+    public function cars(){
+      return $this->hasMany('\App\Car');
     }
 
 }

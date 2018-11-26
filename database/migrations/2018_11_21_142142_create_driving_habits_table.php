@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCostsTable extends Migration
+class CreateDrivingHabitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class CreateCostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('costs', function (Blueprint $table) {
+        Schema::create('driving_habits', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('energy charge',8,5);
-            $table->decimal('DSM',8,5)->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('normal_daily_miles');
+            $table->integer('days_per_week');
+            $table->integer('weeks_per_year');
+            $table->integer('normal_highway_percentage');
+            $table->integer('annual_vacation_miles');
+            $table->integer('vacation_highway_percentage');
+            $table->integer('recharges_per_day')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +35,6 @@ class CreateCostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('costs');
+        Schema::dropIfExists('driving_habits');
     }
 }

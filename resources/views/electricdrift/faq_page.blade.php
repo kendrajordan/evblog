@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 @section('content')
       <div class="jumbotron jumbotron-fluid mb-0 faq ">
         <div class="container faqtext">
@@ -6,32 +6,30 @@
           <p class="lead">All your questions about electric cars answered.</p>
         </div>
       </div>
-      <div id="accordion">
-        <div class="card">
-          <div class="card-header" id="headingOne">
+
+          <div  id="headingOne">
             <h5 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <a class="btn btn-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOne" href="#collapseOne">
                 What is an Electric Cars?
-              </button>
+              </a>
             </h5>
           </div>
 
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseOne" class="collapse " aria-labelledby="headingOne">
+
               An electric car is a plug-in vehicle that doesn't contain a combustion engine and its sole fuel source is electricity.
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingTwo">
+
+
+          <div id="headingTwo">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <a class="btn btn-link collapsed" data-toggle="collapse"  aria-expanded="false" aria-controls="collapseTwo" href="#collapseTwo">
                 How do I charge the car and for how long?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" >
               <p>The length of time it takes to charge an electric vehicle depends on two factors. First, where you are plugging in the vehicle and second,
               how much of an electirc load the car can take during a charging session.<p>
               <p>There are three levels of charging an electric car and these are 110 volts ( level 1 ),
@@ -48,34 +46,30 @@
               <p>Level 3, also know as DC ( Direct Current ) fast charging, is the fastest method of charging an electric vehicle. At level 3, an electric vehicle can add 50 to 90 miles of range in just 30 minutes.
               These charging stations are only available for commercial use.</p>
               <p>The estimate ranges provided also depends the the energy load an electric car can take during a charging session. The bigger the load it can take, the faster the car will be able to charge.</p>
-            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingThree">
+
+          <div id="headingThree">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 How far can you go on one charge?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+
               <p> So far there are three types of electric cars. The long range electric vehicle such as the Cheverolt Bolt EV, Tesla Model S and others can go over 200 miles per charge.
                The middle range vehicles usually have a range around 150 miles such as the 2018 Nissan leaf. Finally, there are the short range electic vehicles with ranges between 75 to 107 miles per charge. </p>
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingFour">
+
+          <div  id="headingFour">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                 How much does it cost to fuel up an Electric Car?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
               <p>This depends on where you live, where you are fueling your car, how often you drive and the mpge or "miles per gallon equivalent" of the electricity vehicle. The price for electric greatly differs from
                 state to state. However, for this example let's use the national average of 12 cents per kwh to demonstrate how much it would cost to fuel an electric car from home. The next thing that we will need to know
                 is the mpge of the car. The mpge of an electric vehicle is based on the measurement of 1 gallon of gas is the equivalent of 33.7 kwh of electric.You can go to fuel comparisons page on this site or go to fueleconomy.gov to find
@@ -87,102 +81,96 @@
             <p class="text-center"> 24.83 kwh used * 12 cents = $2.98</p>
 
 
-            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingFive">
+
+
+          <div id="headingFive">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                 How Long Does An Electric Car's Battery Last?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseFive" class="collapse" aria-labelledby="headingFive">
+
               Lithium-ion battery packs in electric cars usually last 10 years or more. After the battery packs become unusable for driving purposes
               then the battery pack can be recycled or reused for home energy storage.
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingSix">
+
+
+          <div id="headingSix">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
               What is a PHEV?
-              </button>
+            </a>
             </h5>
           </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseSix" class="collapse" aria-labelledby="headingSix">
+
               A PHEV is a hybrid vehicle that has a battery that can be charged independently to help supplement the power of its combustion
               engine. When the battery is almost depleted, then the combustion engine kicks in so that the driver can continue driving the vehicle.
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingSeven">
+
+
+          <div  id="headingSeven">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                 How much maintance does an electric car need?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven">
+
 <p>Compared to a traditional combustion engine car, the maintance for an electric car is relatively low. There are no oil changes, spark plug replacements, emission checks or need to change fuel filters.
 This is due to electric vehicles not posessing a combustion engine. With an electric vehicle, you will still need to pay for tire rotations,windshield wipers and to some extent brakes. As for changing an electric vehicle's brakes, due to them
 having regenerative braking, the brakes will last longer and won't need to be replaced as often.</p>
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingEight">
+
+
+          <div  id="headingEight">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                 How much does it cost to buy a charging station for the home?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseEight" class="collapse" aria-labelledby="headingEight">
+
               <p>For a level 1 charge, it comes free with purchase of an electric vehicle. For a level 2 charging station the cost can range from $400 to $800 if you install a charging station at home.
               As for a level 3 charging station, the cost for one can be around $50,000 and is not intended for home use.</p>
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingNine">
+
+
+          <div  id="headingNine">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
                 Will an electric car work in the winter?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseNine" class="collapse" aria-labelledby="headingNine">
+
               <p>Yes, an electric car will work in the winter. However, the car's range maybe reduced by as much as 20% in freezing conditions. The range maybe reduced further if
               the driver uses the heater.</p>
-            </div>
+
           </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingTen">
+
+
+          <div id="headingTen">
             <h5 class="mb-0">
-              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+              <a class="btn btn-link collapsed" data-toggle="collapse" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                 How do I find public charging stations in my area?
-              </button>
+              </a>
             </h5>
           </div>
-          <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion">
-            <div class="card-body">
+          <div id="collapseTen" class="collapse" aria-labelledby="headingTen">
+
               <p>You can go to the trip planner page on this site to locate some charging stations in your area. You can also go to www.plugshare.com for up-to-date results on new charging stations.</p>
-            </div>
+
           </div>
-        </div>
-</div>
-    <footer class="bg-primary"style=";height:100%;">
-      <p>@2018</p>
-    </footer>
 
 @endsection

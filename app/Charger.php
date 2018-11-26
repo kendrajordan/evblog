@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cost extends Model
+class Charger extends Model
 {
     //
   public function user(){
     return $this->belongsTo('\App\User');
   }
-  public function charge_sessions(){
-      return $this->hasMany('\App\Charge_session');
+  public function cars(){
+      return $this->belongsToMany('\App\Car')->withPivot('start','end');
+
     }
 }

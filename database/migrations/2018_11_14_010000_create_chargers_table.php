@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChargeSessionsTable extends Migration
+class CreateChargersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateChargeSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('charge_sessions', function (Blueprint $table) {
+        Schema::create('chargers', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedInteger('cost_id');
-            $table->foreign('cost_id')->references('id')->on('costs');
-            $table->date('date');
-            $table->decimal('start',8,3);
-            $table->decimal('end',8,3);
+            $table->boolean('per_kwh');
+            $table->decimal('charge_rate',8,2);
+            $table->decimal('cost',8,2);
+            $table->string('name',255);
             $table->timestamps();
-          });
-
+        });
     }
 
     /**
@@ -34,6 +32,6 @@ class CreateChargeSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('charge_sessions');
+        Schema::dropIfExists('chargers');
     }
 }
