@@ -18,10 +18,12 @@ class CarChargerController extends Controller
     public function index()
     {
         //
+
         $car_chargers=CarCharger::orderBy('updated_at', 'desc')->get();
         $chargers =Charger::orderBy('updated_at', 'desc')->get();
         $cars =Car::orderBy('updated_at', 'desc')->get();
-        return view('chargeLog.index',compact('car_chargers','cars','chargers'));
+        $user=\Auth::user();
+        return view('chargeLog.index',compact('car_chargers','cars','chargers','user'));
     }
 
     /**

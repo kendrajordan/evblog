@@ -36,7 +36,7 @@
                 <label for="charger_id">Select a charging station</label>
                 <select class="form-control" type='text'name='charger_id' id="charger_id" >
                   <option disabled selected value>Charging Station</option>
-                  @foreach(Auth::user()->chargers as $charger)
+                  @foreach($user->chargers as $charger)
                   <option value="{{$charger->id}}">{{$charger->name}}</option>
                   @endforeach
                 </select>
@@ -45,7 +45,7 @@
                 <label for="car_id">Select a car station</label>
                 <select class="form-control" type='text'name='car_id' id="car_id" >
                   <option disabled selected value>Car</option>
-                  @foreach(Auth::user()->cars as $car)
+                  @foreach($user->cars as $car)
                   <option value="{{$car->id}}">{{$car->carName}}</option>
                   @endforeach
                 </select>
@@ -81,24 +81,24 @@
 </div>
 <div>
   <h2 class="text-center">Charge Sessions</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Duration</th>
-      <th>Charge Rate</th>
-      <th>Kwhs Added</th>
-      <th>Cost</th>
-    </tr>
-  </thead>
-  <tbody>
-
-    <tr>
-      <th>
-      </th>
-    </tr>
-
-  </tbody>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Edit/Delete</th>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Charging Station</th>
+        <th>Vehicle</th>
+        <th>Charge Rate</th>
+        <th>Kwhs Added</th>
+        <th>Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($car_chargers as $car_charger)
+        <tr is='session' date='{{$car_charger->trimDate()}}' duration='{{$car_charger->duration()}}' chargername='{{$car_charger->charger->name}}' carname='{{$car_charger->car->carName}}' v-bind:charge_rate='{{$car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate}}' v-bind:kwhs_added='{{($car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate)*($car_charger->approximateTime())}}' url='{{url("/chargelogs",$car_charger->id)}}' v-bind:car_charger_id='{{$car_charger->id}}' v-bind:href-charge="'/chargelogs/{{$car_charger->id}}/edit'" v-bind:numhrs='{{$car_charger->approximateTime()}}' option='{{$car_charger->charger->per_kwh}}' v-bind:price='{{$car_charger->charger->cost}}'></session>
+      @endforeach
+    </tbody>
 </table>
 </div>
 @endsection

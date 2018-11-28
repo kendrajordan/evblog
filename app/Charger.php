@@ -14,4 +14,7 @@ class Charger extends Model
       return $this->belongsToMany('\App\Car')->withPivot('start','end');
 
     }
+    public function car_charger(){
+      return $this->hasMany('\App\CarCharger');
+    }
 }
