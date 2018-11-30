@@ -33,7 +33,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                      <li class="mr-3"><a href="/home" class="text-dark">Home</a></li>
+                      <li class="mr-3"><a href="/electricdrift/faq" class="text-dark">F.A.Q</a></li>
+                      <li class="mr-3"><a href="/electricdrift/tripplanner"class="text-dark">Trip Planner</a></li>
+                      <li class="mr-3 nav-item dropdown">
+                        <a id="navbarDropdown nav-item" class="dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                          Charge Log <span class="caret"></span>
+                       </a>
+                       <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                         <a class='dropdown-item' href="/chargelogs">View your Charging Sessions</a>
+                         <a class="dropdown-item" href='/chargers'>Manage Visited Charging Stations</a>
+                         <a class="dropdown-item" href="/cars">Manage My Cars</a>
+                       </div>
+                      </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

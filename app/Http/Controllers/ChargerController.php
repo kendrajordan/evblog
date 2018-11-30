@@ -44,15 +44,19 @@ class ChargerController extends Controller
         //
         $validateData= $request->validate([
           'name' => 'required|unique:chargers|max:255',
-          'per_kwh'=>'required',
-          'cost'=>'required',
+
           'charge_rate'=>'required'
         ]);
         $charger = new Charger();
         $charger->name = request('name');
-        $charger->per_kwh= request('per_kwh');
-        $charger->cost= request('cost');
+        $charger->options= request('options');
+        $charger->flat_rate= request('flat_rate');
         $charger->charge_rate = request('charge_rate');
+        $charger->fee1 = request('fee1');
+        $charger->fee2 = request('fee2');
+        $charger->fee1_hr=request('fee1_hr');
+        $charger->fee1_kwh=request('fee1_kwh');
+        $charger->feeoption=request('feeoption');
         $charger->user_id = \Auth::id();
         $charger->save();
         return redirect()->back();
@@ -78,8 +82,8 @@ class ChargerController extends Controller
     public function edit($id)
     {
         //
-        $charger=\App\Charger::find($id);
-        return view('chargers.edit',compact('charger'));
+        $chargers=\App\Charger::find($id);
+        return view('chargers.edit',compact('chargers'));
     }
 
     /**
@@ -94,10 +98,15 @@ class ChargerController extends Controller
         //
         $charger =Charger::find($id);
         $charger->name  = $request->input('name');
-        $charger->per_kwh= $request->input('per_kwh');
-        $charger->cost = $request->input('cost');
+        $charger->options= $request->input('options');
+        $charger->flat_rate = $request->input('flat_rate');
         $charger->user_id = \Auth::id();
         $charger->charge_rate = $request->input('charge_rate');
+        $charger->fee1 = $request->input('fee1');
+        $charger->fee2 = $request->input('fee2');
+        $charger->fee1_hr = $request->input('fee1_hr');
+        $charger->fee1_kwh = $request->input('fee1_kwh');
+        $charger->feeoption = $request->input('feeoption');
         $charger->save();
         return redirect('/chargers');
     }

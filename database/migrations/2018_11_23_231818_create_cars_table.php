@@ -21,6 +21,7 @@ class CreateCarsTable extends Migration
           $table->decimal('battery_capacity',8,2);
           $table->decimal('charge_rate',8,2);
           $table->timestamps();
+          $table->softDeletes();
         });
     }
 

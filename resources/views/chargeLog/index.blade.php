@@ -74,13 +74,14 @@
             </div>
           </div>
         </div>
-    </div>
-    <div class="card-footer text-muted">
+
+    <div class="card-footer text-muted text-center">
       Charge sessions added:{{count($car_chargers)}}
     </div>
-</div>
-<div>
+  </div>
+
   <h2 class="text-center">Charge Sessions</h2>
+  <div class="table-responsive-sm table-responsive-md ">
   <table class="table">
     <thead>
       <tr>
@@ -89,6 +90,7 @@
         <th>Duration</th>
         <th>Charging Station</th>
         <th>Vehicle</th>
+        <th>Charging by the:</th>
         <th>Charge Rate</th>
         <th>Kwhs Added</th>
         <th>Cost</th>
@@ -96,9 +98,13 @@
     </thead>
     <tbody>
       @foreach ($car_chargers as $car_charger)
-        <tr is='session' date='{{$car_charger->trimDate()}}' duration='{{$car_charger->duration()}}' chargername='{{$car_charger->charger->name}}' carname='{{$car_charger->car->carName}}' v-bind:charge_rate='{{$car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate}}' v-bind:kwhs_added='{{($car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate)*($car_charger->approximateTime())}}' url='{{url("/chargelogs",$car_charger->id)}}' v-bind:car_charger_id='{{$car_charger->id}}' v-bind:href-charge="'/chargelogs/{{$car_charger->id}}/edit'" v-bind:numhrs='{{$car_charger->approximateTime()}}' option='{{$car_charger->charger->per_kwh}}' v-bind:price='{{$car_charger->charger->cost}}'></session>
+       <tr is='session' date='{{$car_charger->trimDate()}}' duration='{{$car_charger->duration()}}' chargername='{{$car_charger->charger->name}}' carname='{{$car_charger->car->carName}}' v-bind:charge_rate='{{$car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate}}' v-bind:kwhs_added='{{($car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate)*($car_charger->approximateTime())}}' url='{{url("/chargelogs",$car_charger->id)}}' v-bind:car_charger_id='{{$car_charger->id}}' v-bind:href-charge="'/chargelogs/{{$car_charger->id}}/edit'" v-bind:numhrs='{{$car_charger->approximateTime()}}' options='{{$car_charger->charger->options}}' v-bind:flat_rate='{{$car_charger->charger->flat_rate?$car_charger->charger->flat_rate:'0'}}' v-bind:fee1_kwh='{{$car_charger->charger->fee1_kwh?$car_charger->charger->fee1_kwh:'0'}}' v-bind:fee1='{{$car_charger->charger->fee1?$car_charger->charger->fee1:'0'}}'
+         v-bind:fee2='{{$car_charger->charger->fee2?$car_charger->charger->fee2:'0'}}' v-bind:feeoption='{{$car_charger->charger->feeoption?$car_charger->charger->feeoption:'0'}}' v-bind:feetime='{{$car_charger->charger->fee1_hr?$car_charger->charger->fee1_hr:'0'}}' v-bind:fee1_kwh='{{$car_charger->charger->fee1_kwh?$car_charger->charger->fee1_kwh:'0'}}' rate='{{($car_charger->charger->options == '0'?'Kwh':($car_charger->charger->options == '1'?'Hour':($car_charger->charger->options == '2'?'Minute':($car_charger->charger->options == '3'?'Session':($car_charger->charger->options == '4'?'Changes Rates':'')))))}}'></session>
+        <!--<tr is='session'
+           v-bind:fee1='{{$car_charger->charger->fee1}}' v-bind:fee2='{{$car_charger->charger->fee2}}' v-bind:feeoption='{{$car_charger->charger->feeoption}}' v-bind:feetime='{{$car_charger->charger->fee1_hr}}' v-bind:fee1_kwh='{{$car_charger->charger->fee1_kwh}}' totalcost='0'></session>-->
       @endforeach
     </tbody>
 </table>
+</div>
 </div>
 @endsection

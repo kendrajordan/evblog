@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('session',require('./components/session.vue'));
+Vue.component('charging_options',require('./components/charging_options.vue'));
 const app = new Vue({
     el: '#app'
       });

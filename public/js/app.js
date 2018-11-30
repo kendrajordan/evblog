@@ -14014,6 +14014,7 @@ window.Vue = __webpack_require__(37);
 
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('session', __webpack_require__(43));
+Vue.component('charging_options', __webpack_require__(51));
 var app = new Vue({
   el: '#app'
 });
@@ -47483,42 +47484,135 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['date', 'duration', 'chargername', 'carname', 'charge_rate', 'kwhs_added', 'car_chargers', 'car_charger', 'url', 'hrefCharge', 'numhrs', 'option', 'price'],
+  props: ['date', 'duration', 'chargername', 'carname', 'charge_rate', 'kwhs_added', 'url', 'hrefCharge', 'numhrs', 'options', 'flat_rate', 'fee1_kwh', 'fee1', 'fee2', 'feeoption', 'feetime', 'rate'],
   data: function data() {
     return {
-      token: document.head.querySelector('meta[name="csrf-token"]').content
+      token: document.head.querySelector('meta[name="csrf-token"]').content,
+      hours_charging: this.numhrs
     };
   },
   methods: {
-    costToCharge: function costToCharge(option) {
-      if (this.option == '1') {
-        var cost = this.kwhs_added * this.price;
-        return cost.toFixed(2);
-      } else {
-        var _cost = this.numhrs * this.price;
-        return _cost.toFixed(2);
-      }
-    },
-    costOptions: function costOptions(option) {
-      switch (this.option) {
+    costOptions: function costOptions(options) {
+      switch (this.options) {
         case '0':
-          byKwh(kwhs_added, flat);
+          return '$' + this.byKwh().toFixed(2);
           break;
         case '1':
-          byHour(numhrs, flat);
+          return '$' + this.byHour().toFixed(2);
           break;
         case '2':
-          bySession(flat);
+          return '$' + this.byMinute().toFixed(2);
           break;
         case '3':
-          byMinute(numhrs, flat);
+          return '$' + this.bySession().toFixed(2);
           break;
         case '4':
-          byFees(fee1, fee2, fee1Time, numhrs, fee1option, fee2option);
+          return '$' + this.byFees().toFixed(2);
           break;
       }
+    },
+    byKwh: function byKwh() {
+      //kwhs_added,flat_rate
+      var totalcost = this.flat_rate * this.kwhs_added;
+      return totalcost;
+    },
+
+    byHour: function byHour() {
+      //numhrs,flat_rate
+      var totalcost = this.numhrs * this.flat_rate;
+      return totalcost;
+    },
+
+    bySession: function bySession() {
+      //flat_rate
+      var totalcost = this.flat_rate;
+      return totalcost;
+    },
+
+    byMinute: function byMinute() {
+      //numhrs flat_rate
+      var totalcost = this.numhrs * 60 * this.flat_rate;
+      return totalcost;
+    },
+    byFees: function byFees() {
+      //fee1 fee2 feetime numhrs feeoption kwhs_added fee1_kwh
+      console.log('byFees');
+      var totalcost = 0;
+      var hours = this.hours_charging;
+      var numhrsinMin = hours * 60;
+      var total_kwhs = this.kwhs_added;
+      var feetimelength = this.feetime;
+      //if both fees are in hours
+      if (this.feeoption == '1') {
+        //Hours
+        console.log('hour');
+
+        if (this.feetime == this.hours_charging) {
+          //if fee1 time is equal to charge time
+          console.log('feetime > hours');
+          totalcost += this.fee1 * feetimelength;
+          return totalcost;
+        } else if (this.feetime < this.hours_charging) {
+          //if fee 1 time is less than charge time
+          console.log('Feetime < hours');
+          totalcost += this.fee1 * feetimelength;
+          hours -= feetimelength;
+          totalcost += hours * this.fee2;
+          return totalcost;
+        } else if (this.feetime > this.hours_charging) {
+          //if fee 1 time is greater than charge time
+          console.log('feetime greater than hours-charging');
+          totalcost += hours * this.fee1;
+          return totalcost;
+        }
+      }
+      //if both fees are in minutes
+      else if (this.feeoption == '2') {
+          //by minutes
+          console.log('minute');
+          if (this.feetime == numhrsinMin) {
+            //if fee1 time is equal to charge time
+
+            totalcost = this.fee1 * feetimelength;
+            return totalcost;
+          } else if (this.feetime < numhrsinMin) {
+            //if fee 1 time is less than charge time
+            totalcost += this.fee1 * feetimelength;
+            numhrsinMin -= feetimelength;
+            console.log(numhrsinMin);
+            totalcost += numhrsinMin * this.fee2;
+            return totalcost;
+          } else if (this.feetime > numhrsinMin) {
+            //if fee 1 time is greater than charge time
+            console.log(numhrsinMin);
+            totalcost += numhrsinMin * this.fee1;
+            console.log(totalcost);
+            return totalcost;
+          }
+        }
+        //if both fees are in kwh
+        else if (this.feeoption == '3') {
+            //Kwh
+            console.log('kwh');
+            if (this.fee1_kwh == this.kwhs_added) {
+              //if the first fee in kwh equal to total kwh added
+              totalcost = total_kwhs * this.fee1;
+              return totalcost;
+            } else if (this.fee1_kwh < this.kwhs_added) {
+              //if fee 1 in kwh is less than total kwh added
+              totalcost += this.fee1 * this.fee1_kwh;
+              total_kwhs -= this.fee1_kwh;
+              totalcost += total_kwhs * this.fee2;
+              return totalcost;
+            } else if (this.fee1_kwh > this.kwhs_added) {
+              //if the total kwh added was less than the first fee in kwh
+              totalcost = total_kwhs * this.fee1;
+              return totalcost;
+            }
+          }
     }
   }
 });
@@ -47567,11 +47661,13 @@ var render = function() {
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.carname))]),
     _vm._v(" "),
-    _c("td", [_vm._v(_vm._s(_vm.charge_rate))]),
+    _c("td", [_vm._v(_vm._s(_vm.rate))]),
     _vm._v(" "),
-    _c("td", [_vm._v(_vm._s(_vm.kwhs_added))]),
+    _c("td", [_vm._v(_vm._s(_vm.charge_rate) + "kw")]),
     _vm._v(" "),
-    _c("td", [_vm._v("$" + _vm._s(_vm.costToCharge(_vm.option)))])
+    _c("td", [_vm._v(_vm._s(_vm.kwhs_added.toFixed(2)) + "kwh")]),
+    _vm._v(" "),
+    _c("td", [_vm._v(_vm._s(_vm.costOptions(this.options)))])
   ])
 }
 var staticRenderFns = [
@@ -47600,6 +47696,196 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(52)
+/* template */
+var __vue_template__ = __webpack_require__(53)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/charging_options.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2456051b", Component.options)
+  } else {
+    hotAPI.reload("data-v-2456051b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "form-group row d-flex justify-content-center " },
+      [
+        _c("label", { staticClass: "col-sm-12", attrs: { for: "options" } }, [
+          _vm._v(
+            "Please click on the pay option your charging station accepts."
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "btn-group btn-group-toggle",
+            attrs: { "data-toggle": "buttons" }
+          },
+          [
+            _c("label", { staticClass: "btn btn-secondary active" }, [
+              _c("input", {
+                attrs: {
+                  type: "radio",
+                  name: "options",
+                  id: "per_kwh",
+                  autocomplete: "off",
+                  checked: "",
+                  value: "0"
+                }
+              }),
+              _vm._v("Per Kwh\n    ")
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "btn btn-secondary" }, [
+              _c("input", {
+                attrs: {
+                  type: "radio",
+                  name: "options",
+                  id: "per_hour",
+                  autocomplete: "off",
+                  value: "1"
+                }
+              }),
+              _vm._v(" Per Hour\n    ")
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "btn btn-secondary" }, [
+              _c("input", {
+                attrs: {
+                  type: "radio",
+                  name: "options",
+                  id: "per_minute",
+                  autocomplete: "off",
+                  value: "2"
+                }
+              }),
+              _vm._v(" Per Minute\n    ")
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "btn btn-secondary" }, [
+              _c("input", {
+                attrs: {
+                  type: "radio",
+                  name: "options",
+                  id: "per_session",
+                  autocomplete: "off",
+                  value: "3"
+                }
+              }),
+              _vm._v(" Per Session\n    ")
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "btn btn-secondary" }, [
+              _c("input", {
+                attrs: {
+                  type: "radio",
+                  name: "options",
+                  id: "fees",
+                  autocomplete: "off",
+                  value: "4"
+                }
+              }),
+              _vm._v(" Changing Rates\n    ")
+            ])
+          ]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2456051b", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
