@@ -97,6 +97,7 @@ class CarController extends Controller
         $car->user_id = \Auth::id();
         $car->charge_rate = $request->input('charge_rate');
         $car->save();
+        $request->session()->flash('status', 'You have added a car!');
         return redirect('/cars');
     }
 

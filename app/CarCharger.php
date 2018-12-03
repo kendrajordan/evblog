@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\DateTime;
+
 class CarCharger extends Model
 {
     //
@@ -12,7 +14,17 @@ class CarCharger extends Model
       'car_id',
       'charger_id',
       'start',
-      'end'
+      'end',
+      'vehicle_battery_capacity',
+      'vehicle_charge_rate',
+      'charger_charge_rate',
+      'flat_rate',
+      'fee1',
+      'fee2',
+      'fee_time',
+      'fee1_kwh',
+      'options',
+      'feeoption'
     ];
     public function trimDate(){
       $dt = new Carbon($this->start);
@@ -36,6 +48,16 @@ class CarCharger extends Model
       $duration=$hour.'hours and '.$remainder.'minutes';
       return $duration;
     }
+    public function time(){
+      $dt = new \DateTime($this->start);
+      $dt->setTimeZone(new \DateTimeZone('UTC'));
+      return $dt->format('Y-m-d\TH:i');
+    }
+    public function end(){
+      $dt = new \DateTime($this->end);
+      $dt->setTimeZone(new \DateTimeZone('UTC'));
+      return $dt->format('Y-m-d\TH:i');
+    }
     public function user(){
       return $this->belongsTo('\App\User');
     }
@@ -45,5 +67,8 @@ class CarCharger extends Model
     public function charger(){
       return $this->belongsTo('\App\Charger');
     }
+
+
+
   protected $dateFormat = 'm-d-YTH:i:s';
 }

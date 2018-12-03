@@ -59,6 +59,7 @@ class ChargerController extends Controller
         $charger->feeoption=request('feeoption');
         $charger->user_id = \Auth::id();
         $charger->save();
+        $request->session()->flash('status', 'You have added a charging station!');
         return redirect()->back();
     }
 

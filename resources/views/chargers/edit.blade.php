@@ -31,78 +31,15 @@
         <label for="charge rate">Example: (240v * 30amp)/1000 = 7.2 kw</label>
         <input class="form-control" type='text'name='charge_rate' id="charge_rate" value="{{$chargers->charge_rate}}">
       </div>
-      <div class="form-group row d-flex justify-content-center ">
-        <label for="options" class="col-sm-12">Change the pay option your charging station accepts.</label>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary {{$chargers->options == '0'? 'active':''}}">
-            <input type="radio" name="options" id="per_kwh" autocomplete="off" checked value='0'>Per Kwh
-          </label>
-          <label class="btn btn-secondary {{$chargers->options == '1'? 'active':''}}">
-            <input type="radio" name="options" id="per_hour" autocomplete="off" value='1'> Per Hour
-          </label>
-          <label class="btn btn-secondary {{$chargers->options == '2'? 'active':''}}">
-            <input type="radio" name="options" id="per_minute" autocomplete="off" value='2'> Per Minute
-          </label>
-          <label class="btn btn-secondary {{$chargers->options == '3'? 'active':''}}">
-            <input type="radio" name="options" id="per_session" autocomplete="off" value='3'> Per Session
-          </label>
-          <label class="btn btn-secondary {{$chargers->options == '4'? 'active':''}}">
-            <input type="radio" name="options" id="fees" autocomplete="off" value='4'> Changing Rates
-          </label>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="flat_rate">Edit Flat Rate Price</label>
-        <input class="form-control" type='text'name='flat_rate' id="flat_rate" value="{{$chargers->flat_rate}}">
-      </div>
-      <div id="changing_fees">
-      <div class="row">
-        <div class="form-group col-sm-6">
-          <label for="fee1">Edit Initial Fee</label>
-          <input class="form-control" type='text'name='fee1' id="fee1" value="{{$chargers->fee1}}">
-        </div>
-        <div class="form-group col-sm-6">
-          <label for="fee2" class="col-sm-12">Edit Changed Fee</label>
-          <input class="form-control" type='text'name='fee2' id="fee2" value="{{$chargers->fee2}}">
-        </div>
-        </div>
-      </div>
-      <div class='row'>
-        <div class="form-group col-sm-12">
-          <label for="feeoption"class="col-sm-12">Please change the rate.</label>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary {{$chargers->feeoption == '1'? 'active':''}}">
-              <input type="radio" name="feeoption" id="fee1_per_hour" autocomplete="off" value='1'>Per Hour
-            </label>
-            <label class="btn btn-secondary {{$chargers->feeoption == '2'? 'active':''}}">
-              <input type="radio" name="feeoption" id="fee1_per_minute" autocomplete="off" value='2'> Per Minute
-            </label>
-            <label class="btn btn-secondary {{$chargers->feeoption == '3'? 'active':''}}">
-              <input type="radio" name="feeoption" id="fee1_per_kwh" autocomplete="off" value='3'> Per Kwh
-            </label>
-          </div>
-        </div>
-    </div>
-      <div class="row">
-        <div class="form-group col">
-          <label for="fee1_hr">For how many minutes or hours will the intial fee be in affect?</label>
-          <input class="form-control" type='text'name='fee1_hr' id="fee1_hr" value="{{$chargers->fee1_hr}}">
-        </div>
-      </div>
-      <div id="kwh_fee">
-        <div class="form-group col ">
-          <label for="fee1_kwh">For how many kilowatts will the initial fee be in affect?</label>
-          <input class="form-control" type='text'name='fee1_kwh' id="fee1_kwh" value="{{$chargers->fee1_kwh}}">
-        </div>
-      </div>
+
+      <charging_options_edit :options='{{$chargers->options}}' :feeoption='{{$chargers->feeoption?$chargers->feeoption:'null'}}' :flat_rate='{{$chargers->flat_rate?$chargers->flat_rate:'null'}}' :initial='{{$chargers->fee1?$chargers->fee1:'null'}}' :secondary='{{$chargers->fee2?$chargers->fee2:'null'}}' :feetime='{{$chargers->fee1_hr?$chargers->fee1_hr:'null'}}' :kwh_fee='{{$chargers->fee1_kwh?$chargers->fee1_kwh:'null'}}'></charging_options_edit>
+  
       <button type="submit" class="btn btn-default">Submit</button>
       <a href="/chargers" class="btn btn-dark">Cancel</a>
     </div>
 
     </form>
   </div>
-  <div class="card-footer text-muted text-center">
-    Chargers added:{{count($chargers)}}
-  </div>
+
 </div>
 @endsection

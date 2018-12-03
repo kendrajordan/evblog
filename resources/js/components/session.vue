@@ -1,5 +1,5 @@
 <template>
-      <tr>
+      <tr :class='end'>
         <th>
           <div class="row">
               <button type='submit' class="btn btn-dark"><a :href="hrefCharge"><i class="fas fa-user-edit text-primary"></i></a></button>
@@ -23,11 +23,12 @@
 </template>
 <script>
   export default{
-  props:['date','duration','chargername','carname','charge_rate','kwhs_added','url','hrefCharge','numhrs','options','flat_rate','fee1_kwh','fee1','fee2','feeoption','feetime','rate'],
+  props:['date','duration','chargername','carname','charge_rate','kwhs_added','url','hrefCharge','numhrs','options','flat_rate','fee1_kwh','fee1','fee2','feeoption','feetime','rate','end'],
   data:function(){
   return{
    token: document.head.querySelector('meta[name="csrf-token"]').content,
    hours_charging: this.numhrs,
+   alert:this.end,
       }
     },
     methods:{
@@ -81,12 +82,14 @@
           console.log('hour');
 
         	if(this.feetime == this.hours_charging){//if fee1 time is equal to charge time
-          console.log('feetime > hours');
+          console.log('feetime = hours');
           	 totalcost +=(this.fee1 * feetimelength);
             return totalcost;
           }
           else if(this.feetime < this.hours_charging) {//if fee 1 time is less than charge time
             console.log('Feetime < hours');
+            console.log('the fee time is '+ this.feetime);
+            console.log('the feetimelength is'+feetimelength);
           	 totalcost += (this.fee1 * feetimelength);
              hours-= feetimelength;
               totalcost+= hours * this.fee2;

@@ -31,8 +31,8 @@
               <input class="form-control" type='datetime-local'name='end' id="end" >
             </div>
       </div>
-        <div class="form-group row">
-            <div class="col-sm-6">
+        <div class="form-group row d-flex-justify-content-center">
+            <div class="col-sm-6 m-0">
                 <label for="charger_id">Select a charging station</label>
                 <select class="form-control" type='text'name='charger_id' id="charger_id" >
                   <option disabled selected value>Charging Station</option>
@@ -41,7 +41,7 @@
                   @endforeach
                 </select>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 m-0">
                 <label for="car_id">Select a car station</label>
                 <select class="form-control" type='text'name='car_id' id="car_id" >
                   <option disabled selected value>Car</option>
@@ -50,6 +50,7 @@
                   @endforeach
                 </select>
           </div>
+
         </div>
          <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -58,15 +59,15 @@
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Add a car</button>
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Add Both</button>
       </p>
-      <div class="row">
-          <div class="col-sm-12 col-md-6">
+      <div >
+          <div class="col-6">
             <div class="collapse multi-collapse" id="multiCollapseExample1">
               <div>
                 @include('layouts.charger_card')
               </div>
             </div>
           </div>
-          <div class="col-sm-12 col-md-6">
+          <div class="col-6">
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div>
                 @include('layouts.car_card')
@@ -98,10 +99,11 @@
     </thead>
     <tbody>
       @foreach ($car_chargers as $car_charger)
-       <tr is='session' date='{{$car_charger->trimDate()}}' duration='{{$car_charger->duration()}}' chargername='{{$car_charger->charger->name}}' carname='{{$car_charger->car->carName}}' v-bind:charge_rate='{{$car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate}}' v-bind:kwhs_added='{{($car_charger->charger->charge_rate <= $car_charger->car->charge_rate? $car_charger->charger->charge_rate:$car_charger->car->charge_rate)*($car_charger->approximateTime())}}' url='{{url("/chargelogs",$car_charger->id)}}' v-bind:car_charger_id='{{$car_charger->id}}' v-bind:href-charge="'/chargelogs/{{$car_charger->id}}/edit'" v-bind:numhrs='{{$car_charger->approximateTime()}}' options='{{$car_charger->charger->options}}' v-bind:flat_rate='{{$car_charger->charger->flat_rate?$car_charger->charger->flat_rate:'0'}}' v-bind:fee1_kwh='{{$car_charger->charger->fee1_kwh?$car_charger->charger->fee1_kwh:'0'}}' v-bind:fee1='{{$car_charger->charger->fee1?$car_charger->charger->fee1:'0'}}'
-         v-bind:fee2='{{$car_charger->charger->fee2?$car_charger->charger->fee2:'0'}}' v-bind:feeoption='{{$car_charger->charger->feeoption?$car_charger->charger->feeoption:'0'}}' v-bind:feetime='{{$car_charger->charger->fee1_hr?$car_charger->charger->fee1_hr:'0'}}' v-bind:fee1_kwh='{{$car_charger->charger->fee1_kwh?$car_charger->charger->fee1_kwh:'0'}}' rate='{{($car_charger->charger->options == '0'?'Kwh':($car_charger->charger->options == '1'?'Hour':($car_charger->charger->options == '2'?'Minute':($car_charger->charger->options == '3'?'Session':($car_charger->charger->options == '4'?'Changes Rates':'')))))}}'></session>
-        <!--<tr is='session'
-           v-bind:fee1='{{$car_charger->charger->fee1}}' v-bind:fee2='{{$car_charger->charger->fee2}}' v-bind:feeoption='{{$car_charger->charger->feeoption}}' v-bind:feetime='{{$car_charger->charger->fee1_hr}}' v-bind:fee1_kwh='{{$car_charger->charger->fee1_kwh}}' totalcost='0'></session>-->
+      @if ($car_charger->end == null)
+       <h2 class='text-center text-danger'>You need to add an end time!</h2>
+      @endif
+       <tr is='session' date='{{$car_charger->trimDate()}}' duration='{{$car_charger->end != null ?$car_charger->duration():'You need to add a end time!'}}' chargername='{{$car_charger->charger->name}}' carname='{{$car_charger->car->carName}}' v-bind:charge_rate='{{$car_charger->charger_charge_rate <= $car_charger->vehicle_charge_rate? $car_charger->charger_charge_rate:$car_charger->vehicle_charge_rate}}' v-bind:kwhs_added='{{($car_charger->charger_charge_rate <= $car_charger->vehicle_charge_rate? $car_charger->charger_charge_rate:$car_charger->vehicle_charge_rate)*($car_charger->approximateTime())}}' url='{{url("/chargelogs",$car_charger->id)}}' v-bind:car_charger_id='{{$car_charger->id}}' v-bind:href-charge="'/chargelogs/{{$car_charger->id}}/edit'" v-bind:numhrs='{{$car_charger->approximateTime()}}' options='{{$car_charger->options}}' v-bind:flat_rate='{{$car_charger->flat_rate?$car_charger->flat_rate:'0'}}' v-bind:fee1_kwh='{{$car_charger->fee1_kwh?$car_charger->fee1_kwh:'0'}}' v-bind:fee1='{{$car_charger->fee1?$car_charger->fee1:'0'}}' v-bind:fee2='{{$car_charger->fee2?$car_charger->fee2:'0'}}' v-bind:feeoption='{{$car_charger->feeoption?$car_charger->feeoption:'0'}}' v-bind:feetime='{{$car_charger->fee_time?$car_charger->fee_time:'0'}}' v-bind:fee1_kwh='{{$car_charger->fee1_kwh?$car_charger->fee1_kwh:'0'}}' rate='{{($car_charger->options == '0'?'Kwh':($car_charger->options == '1'?'Hour':($car_charger->options == '2'?'Minute':($car_charger->options == '3'?'Session':($car_charger->options == '4'?'Changes Rates':'')))))}}' end='{{$car_charger->end == null?'bg-danger':''}}'></session>
+
       @endforeach
     </tbody>
 </table>

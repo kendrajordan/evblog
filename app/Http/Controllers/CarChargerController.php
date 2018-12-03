@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 class CarChargerController extends Controller
 {
+    //     dd([$request('start'), $request->input('start')]);
     /**
      * Display a listing of the resource.
      *
@@ -46,14 +47,28 @@ class CarChargerController extends Controller
     public function store(Request $request)
     {
       //Create a new charging session
+      $car = \App\Car::find($request->input('car_id'));
+      $charger = \App\Charger::find($request->input('charger_id'));
       $car_charger = new \App\CarCharger;
       $car_charger->user_id = \Auth::id();
-      $car_charger->car_id=request('car_id');
-      $car_charger->charger_id=request('charger_id');
+      $car_charger->car_id =$request->input('car_id');
+      $car_charger->charger_id=$request->input('charger_id');
+      $car_charger->vehicle_battery_capacity =$car->battery_capacity;
+      $car_charger->vehicle_charge_rate =$car->charge_rate;
+      $car_charger->charger_charge_rate =$charger->charge_rate;
+      $car_charger->flat_rate =$charger->flat_rate;
+      $car_charger->fee1 =$charger->fee1;
+      $car_charger->fee2 =$charger->fee2;
+      $car_charger->fee_time =$charger->fee1_hr;
+      $car_charger->fee1_kwh =$charger->fee1_kwh;
+      $car_charger->options =$charger->options;
+      $car_charger->feeoption=$charger->feeoption;
       $car_charger->start=request('start');
+    //  dd(request('start'));
       $car_charger->end=request('end');
+    //  dd(request('end'));
       $car_charger->save();
-
+      $request->session()->flash('status', 'You have added a charging session!');
       return redirect()->back();
 
     }
@@ -75,9 +90,17 @@ class CarChargerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         //
+        $car = \App\Car::find($request->input('car_id'));
+        $charger = \App\Charger::find($request->input('charger_id'));
+        $car_chargers=\App\CarCharger::orderBy('updated_at', 'desc')->get();
+        $chargers =Charger::orderBy('updated_at', 'desc')->get();
+        $cars =Car::orderBy('updated_at', 'desc')->get();
+        $car_charger=\App\CarCharger::find($id);
+        $user=\Auth::user();
+        return view('chargeLog.edit',compact('car_charger'));
     }
 
     /**
@@ -90,8 +113,26 @@ class CarChargerController extends Controller
     public function update(Request $request, $id)
     {
         //
-       $charger = App\Charger::find($id);
-       $charger->cars()->updatingExistingPivot($car_id,$start,$end);
+        $car = \App\Car::find($request->input('car_id'));
+        $charger = \App\Charger::find($request->input('charger_id'));
+       $car_charger =CarCharger::find($id);
+       $car_charger->vehicle_battery_capacity= $request->input('vehicle_battery_capacity');
+       $car_charger->vehicle_charge_rate= $request->input('vehicle_charge_rate');
+       $car_charger->charger_charge_rate= $request->input('charger_charge_rate');
+       $car_charger->flat_rate = $request->input('flat_rate');
+       $car_charger->fee1= $request->input('fee1');
+       $car_charger->fee2= $request->input('fee2');
+       $car_charger->fee_time= $request->input('fee_time');
+       $car_charger->fee1_kwh= $request->input('fee1_kwh');
+       $car_charger->options= $request->input('options');
+       $car_charger->feeoption= $request->input('feeoption');
+       $car_charger->start = $request->input('start');
+    //   dd($request->input('start'));
+       $car_charger->end= $request->input('end');
+      // dd($request->input('end'));
+       $car_charger->save();
+
+       return redirect('/chargeLogs');
     }
 
     /**

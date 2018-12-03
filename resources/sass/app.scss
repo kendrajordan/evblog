@@ -1,3 +1,13 @@
+div.card-body{
+  background-color: #DCE4E7;
+}
+button.btn.btn-default{
+  background-color: #3490dc;
+}
+div.table-responsive-sm.table-responsive-md{
+  background-color: #FFFFFF;
+}
+$secondary:#5e91ff;
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
@@ -9,7 +19,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: #3490dc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 @import url('https://fonts.googleapis.com/css?family=Electrolize');

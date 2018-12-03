@@ -14015,6 +14015,7 @@ window.Vue = __webpack_require__(37);
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('session', __webpack_require__(43));
 Vue.component('charging_options', __webpack_require__(51));
+Vue.component('charging_options_edit', __webpack_require__(54));
 var app = new Vue({
   el: '#app'
 });
@@ -47487,11 +47488,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['date', 'duration', 'chargername', 'carname', 'charge_rate', 'kwhs_added', 'url', 'hrefCharge', 'numhrs', 'options', 'flat_rate', 'fee1_kwh', 'fee1', 'fee2', 'feeoption', 'feetime', 'rate'],
+  props: ['date', 'duration', 'chargername', 'carname', 'charge_rate', 'kwhs_added', 'url', 'hrefCharge', 'numhrs', 'options', 'flat_rate', 'fee1_kwh', 'fee1', 'fee2', 'feeoption', 'feetime', 'rate', 'end'],
   data: function data() {
     return {
       token: document.head.querySelector('meta[name="csrf-token"]').content,
-      hours_charging: this.numhrs
+      hours_charging: this.numhrs,
+      alert: this.end
     };
   },
   methods: {
@@ -47552,12 +47554,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (this.feetime == this.hours_charging) {
           //if fee1 time is equal to charge time
-          console.log('feetime > hours');
+          console.log('feetime = hours');
           totalcost += this.fee1 * feetimelength;
           return totalcost;
         } else if (this.feetime < this.hours_charging) {
           //if fee 1 time is less than charge time
           console.log('Feetime < hours');
+          console.log('the fee time is ' + this.feetime);
+          console.log('the feetimelength is' + feetimelength);
           totalcost += this.fee1 * feetimelength;
           hours -= feetimelength;
           totalcost += hours * this.fee2;
@@ -47625,7 +47629,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
+  return _c("tr", { class: _vm.end }, [
     _c("th", [
       _c("div", { staticClass: "row" }, [
         _c(
@@ -47750,8 +47754,10 @@ module.exports = Component.exports
 
 /***/ }),
 /* 52 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -47774,6 +47780,66 @@ module.exports = Component.exports
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: [],
+  data: function data() {
+    return {
+      rateType: '0',
+      combo: '1'
+    };
+  },
+  methods: {}
+
+});
 
 /***/ }),
 /* 53 */
@@ -47783,14 +47849,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
+  return _c("div", { staticStyle: { width: "100%" } }, [
+    _c(
       "div",
       { staticClass: "form-group row d-flex justify-content-center " },
       [
@@ -47803,79 +47863,376 @@ var staticRenderFns = [
         _c(
           "div",
           {
-            staticClass: "btn-group btn-group-toggle",
-            attrs: { "data-toggle": "buttons" }
+            staticClass:
+              "btn-group btn-group-toggle col-sm-12 col-md-12 justify-content-center"
           },
           [
-            _c("label", { staticClass: "btn btn-secondary active" }, [
-              _c("input", {
-                attrs: {
-                  type: "radio",
-                  name: "options",
-                  id: "per_kwh",
-                  autocomplete: "off",
-                  checked: "",
-                  value: "0"
-                }
-              }),
-              _vm._v("Per Kwh\n    ")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "0" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_kwh",
+                    autocomplete: "off",
+                    value: "0"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "0") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "0"
+                    }
+                  }
+                }),
+                _vm._v("Per Kwh\n      ")
+              ]
+            ),
             _vm._v(" "),
-            _c("label", { staticClass: "btn btn-secondary" }, [
-              _c("input", {
-                attrs: {
-                  type: "radio",
-                  name: "options",
-                  id: "per_hour",
-                  autocomplete: "off",
-                  value: "1"
-                }
-              }),
-              _vm._v(" Per Hour\n    ")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "1" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_hour",
+                    autocomplete: "off",
+                    value: "1"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "1") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "1"
+                    }
+                  }
+                }),
+                _vm._v(" Per Hour\n      ")
+              ]
+            ),
             _vm._v(" "),
-            _c("label", { staticClass: "btn btn-secondary" }, [
-              _c("input", {
-                attrs: {
-                  type: "radio",
-                  name: "options",
-                  id: "per_minute",
-                  autocomplete: "off",
-                  value: "2"
-                }
-              }),
-              _vm._v(" Per Minute\n    ")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "2" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_minute",
+                    autocomplete: "off",
+                    value: "2"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "2") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "2"
+                    }
+                  }
+                }),
+                _vm._v(" Per Minute\n      ")
+              ]
+            ),
             _vm._v(" "),
-            _c("label", { staticClass: "btn btn-secondary" }, [
-              _c("input", {
-                attrs: {
-                  type: "radio",
-                  name: "options",
-                  id: "per_session",
-                  autocomplete: "off",
-                  value: "3"
-                }
-              }),
-              _vm._v(" Per Session\n    ")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "3" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_session",
+                    autocomplete: "off",
+                    value: "3"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "3") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "3"
+                    }
+                  }
+                }),
+                _vm._v(" Per Session\n      ")
+              ]
+            ),
             _vm._v(" "),
-            _c("label", { staticClass: "btn btn-secondary" }, [
-              _c("input", {
-                attrs: {
-                  type: "radio",
-                  name: "options",
-                  id: "fees",
-                  autocomplete: "off",
-                  value: "4"
-                }
-              }),
-              _vm._v(" Changing Rates\n    ")
-            ])
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary ",
+                class: _vm.rateType == "4" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "fees",
+                    autocomplete: "off",
+                    value: "4"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "4") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "4"
+                    }
+                  }
+                }),
+                _vm._v(" Changing Rates\n      ")
+              ]
+            )
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _vm.rateType < "4"
+      ? _c("div", { staticClass: "form-group", attrs: { id: "flat_fee" } }, [
+          _c("label", { attrs: { for: "flat_rate" } }, [
+            _vm._v("Add Flat Rate Price")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            key: "flat_rate-input",
+            staticClass: "form-control",
+            attrs: { type: "text", name: "flat_rate", id: "flat_rate" }
+          })
+        ])
+      : _c("div", { attrs: { id: "changing_fees" } }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "form-group col-sm-6" }, [
+              _c("label", { attrs: { for: "fee1" } }, [
+                _vm._v("Add Initial Fee")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                key: "fee1-input",
+                staticClass: "form-control",
+                attrs: { type: "text", name: "fee1", id: "fee1" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group col-sm-6" }, [
+              _c(
+                "label",
+                { staticClass: "col-sm-12", attrs: { for: "fee2" } },
+                [_vm._v("Add Changed Fee")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                key: "fee2-input",
+                staticClass: "form-control",
+                attrs: { type: "text", name: "fee2", id: "fee2" }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "form-group col-sm-12" }, [
+              _c(
+                "label",
+                { staticClass: "col-sm-12", attrs: { for: "feeoption" } },
+                [_vm._v("Please click on the rate for your initial fee.")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn-group btn-group-toggle" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-secondary",
+                    class: _vm.combo == "1" ? "active" : ""
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.combo,
+                          expression: "combo"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "feeoption",
+                        id: "fee1_per_hour",
+                        autocomplete: "off",
+                        value: "1"
+                      },
+                      domProps: { checked: _vm._q(_vm.combo, "1") },
+                      on: {
+                        change: function($event) {
+                          _vm.combo = "1"
+                        }
+                      }
+                    }),
+                    _vm._v("Per Hour\n            ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-secondary",
+                    class: _vm.combo == "2" ? "active" : ""
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.combo,
+                          expression: "combo"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "feeoption",
+                        id: "fee1_per_minute",
+                        autocomplete: "off",
+                        value: "2"
+                      },
+                      domProps: { checked: _vm._q(_vm.combo, "2") },
+                      on: {
+                        change: function($event) {
+                          _vm.combo = "2"
+                        }
+                      }
+                    }),
+                    _vm._v(" Per Minute\n            ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-secondary",
+                    class: _vm.combo == "3" ? "active" : ""
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.combo,
+                          expression: "combo"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "feeoption",
+                        id: "fee1_per_kwh",
+                        value: "3"
+                      },
+                      domProps: { checked: _vm._q(_vm.combo, "3") },
+                      on: {
+                        change: function($event) {
+                          _vm.combo = "3"
+                        }
+                      }
+                    }),
+                    _vm._v(" Per Kwh\n            ")
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.combo < 3
+            ? _c("div", { staticClass: "row" }, [_vm._m(0)])
+            : _c("div", { attrs: { id: "kwh_fee" } }, [_vm._m(1)])
+        ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col" }, [
+      _c("label", { attrs: { for: "fee1_hr" } }, [
+        _vm._v(
+          "For how many minutes or hours will the intial fee be in affect?"
+        )
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", name: "fee1_hr", id: "fee1_hr" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col " }, [
+      _c("label", { attrs: { for: "fee1_kwh" } }, [
+        _vm._v("For how many kilowatts will the initial fee be in affect?")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", name: "fee1_kwh", id: "fee1_kwh" }
+      })
+    ])
   }
 ]
 render._withStripped = true
@@ -47884,6 +48241,568 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-2456051b", module.exports)
+  }
+}
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(55)
+/* template */
+var __vue_template__ = __webpack_require__(56)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/charging_options_edit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-463ff744", Component.options)
+  } else {
+    hotAPI.reload("data-v-463ff744", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['options', 'feeoption', 'flat_rate', 'initial', 'secondary', 'feetime', 'kwh_fee'],
+  data: function data() {
+    return {
+      rateType: this.options,
+      combo: this.feeoption,
+      flat_fee: this.flat_rate,
+      initial_fee: this.initial,
+      secondary_fee: this.secondary,
+      fee_time: this.feetime,
+      feekwh: this.kwh_fee
+    };
+  },
+  methods: {}
+
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticStyle: { width: "100%" } }, [
+    _c(
+      "div",
+      { staticClass: "form-group row d-flex justify-content-center " },
+      [
+        _c("label", { staticClass: "col-sm-12", attrs: { for: "options" } }, [
+          _vm._v(
+            "Please click on the pay option your charging station accepts."
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "btn-group btn-group-toggle col-sm-12 col-md-12 justify-content-center"
+          },
+          [
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "0" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_kwh",
+                    autocomplete: "off",
+                    value: "0"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "0") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "0"
+                    }
+                  }
+                }),
+                _vm._v("Per Kwh\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "1" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_hour",
+                    autocomplete: "off",
+                    value: "1"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "1") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "1"
+                    }
+                  }
+                }),
+                _vm._v(" Per Hour\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "2" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_minute",
+                    autocomplete: "off",
+                    value: "2"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "2") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "2"
+                    }
+                  }
+                }),
+                _vm._v(" Per Minute\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary",
+                class: _vm.rateType == "3" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "per_session",
+                    autocomplete: "off",
+                    value: "3"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "3") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "3"
+                    }
+                  }
+                }),
+                _vm._v(" Per Session\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "btn btn-secondary ",
+                class: _vm.rateType == "4" ? "active" : ""
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rateType,
+                      expression: "rateType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "options",
+                    id: "fees",
+                    autocomplete: "off",
+                    value: "4"
+                  },
+                  domProps: { checked: _vm._q(_vm.rateType, "4") },
+                  on: {
+                    change: function($event) {
+                      _vm.rateType = "4"
+                    }
+                  }
+                }),
+                _vm._v(" Changing Rates\n      ")
+              ]
+            )
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _vm.rateType < "4"
+      ? _c("div", { staticClass: "form-group", attrs: { id: "flat_fee" } }, [
+          _c("label", { attrs: { for: "flat_rate" } }, [
+            _vm._v("Add Flat Rate Price")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            key: "flat_rate-input",
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              name: "flat_rate",
+              id: "flat_rate",
+              placeholder: _vm.flat_fee
+            }
+          })
+        ])
+      : _c("div", { attrs: { id: "changing_fees" } }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "form-group col-sm-6" }, [
+              _c("label", { attrs: { for: "fee1" } }, [
+                _vm._v("Add Initial Fee")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                key: "fee1-input",
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  name: "fee1",
+                  id: "fee1",
+                  placeholder: _vm.initial_fee
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group col-sm-6" }, [
+              _c(
+                "label",
+                { staticClass: "col-sm-12", attrs: { for: "fee2" } },
+                [_vm._v("Add Changed Fee")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                key: "fee2-input",
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  name: "fee2",
+                  id: "fee2",
+                  placeholder: _vm.secondary_fee
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "form-group col-sm-12" }, [
+              _c(
+                "label",
+                { staticClass: "col-sm-12", attrs: { for: "feeoption" } },
+                [_vm._v("Please click on the rate for your initial fee.")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn-group btn-group-toggle" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-secondary",
+                    class: _vm.combo == "1" ? "active" : ""
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.combo,
+                          expression: "combo"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "feeoption",
+                        id: "fee1_per_hour",
+                        autocomplete: "off",
+                        value: "1"
+                      },
+                      domProps: { checked: _vm._q(_vm.combo, "1") },
+                      on: {
+                        change: function($event) {
+                          _vm.combo = "1"
+                        }
+                      }
+                    }),
+                    _vm._v("Per Hour\n            ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-secondary",
+                    class: _vm.combo == "2" ? "active" : ""
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.combo,
+                          expression: "combo"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "feeoption",
+                        id: "fee1_per_minute",
+                        autocomplete: "off",
+                        value: "2"
+                      },
+                      domProps: { checked: _vm._q(_vm.combo, "2") },
+                      on: {
+                        change: function($event) {
+                          _vm.combo = "2"
+                        }
+                      }
+                    }),
+                    _vm._v(" Per Minute\n            ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "btn btn-secondary",
+                    class: _vm.combo == "3" ? "active" : ""
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.combo,
+                          expression: "combo"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "feeoption",
+                        id: "fee1_per_kwh",
+                        value: "3"
+                      },
+                      domProps: { checked: _vm._q(_vm.combo, "3") },
+                      on: {
+                        change: function($event) {
+                          _vm.combo = "3"
+                        }
+                      }
+                    }),
+                    _vm._v(" Per Kwh\n            ")
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm.combo < 3
+            ? _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-group col" }, [
+                  _c("label", { attrs: { for: "fee1_hr" } }, [
+                    _vm._v(
+                      "For how many minutes or hours will the intial fee be in affect?"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "fee1_hr",
+                      id: "fee1_hr",
+                      placeholder: _vm.fee_time
+                    }
+                  })
+                ])
+              ])
+            : _c("div", { attrs: { id: "kwh_fee" } }, [
+                _c("div", { staticClass: "form-group col " }, [
+                  _c("label", { attrs: { for: "fee1_kwh" } }, [
+                    _vm._v(
+                      "For how many kilowatts will the initial fee be in affect?"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "fee1_kwh",
+                      id: "fee1_kwh",
+                      placeholder: _vm.feekwh
+                    }
+                  })
+                ])
+              ])
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-463ff744", module.exports)
   }
 }
 

@@ -6,7 +6,7 @@
     My Cars
   </div>
 <div class="card-body">
-  <h5 class="card-title">Edit your car infromation hear.</h5>
+  <h5 class="card-title">Edit your car infromation here.</h5>
     <form action="/cars/{{$car->id}}" method="POST">
       @method('PUT')
       @csrf
