@@ -20,3 +20,6 @@ Route::resource('/chargelogs','CarChargerController')->middleware('auth');
 Route::resource('/chargers', 'ChargerController')->middleware('auth');
 Route::resource('/cars','CarController')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/chargers/{charger}/restore','ChargerController@restore')->middleware('auth');
+Route::get('/cars/{car}/restore','CarController@restore')->middleware('auth');
+Route::get('/chargelogs/{chargelog}/restore','CarChargerController@restore')->middleware('auth');

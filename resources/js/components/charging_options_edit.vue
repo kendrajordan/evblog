@@ -1,21 +1,21 @@
 <template>
 <div style="width:100%">
-  <div class="form-group row d-flex justify-content-center ">
+  <div class="form-group justify-content-center ">
     <label for="options" class="col-sm-12">Please click on the pay option your charging station accepts.</label>
-    <div class="btn-group btn-group-toggle col-sm-12 col-md-12 justify-content-center" >
-      <label class="btn btn-secondary" :class="rateType == '0'?'active':''" >
+    <div class="btn-group btn-group-toggle  row d-flex justify-content-center" >
+      <label class="btn btn-secondary mb-1" :class="rateType == '0'?'active':''" >
         <input type="radio" name="options" id="per_kwh" autocomplete="off" v-model="rateType" value='0'>Per Kwh
       </label>
-      <label class="btn btn-secondary" :class="rateType == '1'?'active':''" >
+      <label class="btn btn-secondary mb-1" :class="rateType == '1'?'active':''" >
         <input type="radio" name="options" id="per_hour" autocomplete="off" value='1'  v-model="rateType"> Per Hour
       </label>
-      <label class="btn btn-secondary" :class="rateType == '2'?'active':''" >
+      <label class="btn btn-secondary mb-1" :class="rateType == '2'?'active':''" >
         <input type="radio" name="options" id="per_minute" autocomplete="off" value='2'  v-model="rateType" > Per Minute
       </label>
-      <label class="btn btn-secondary" :class="rateType == '3'?'active':''" >
+      <label class="btn btn-secondary mb-1" :class="rateType == '3'?'active':''" >
         <input type="radio" name="options" id="per_session" autocomplete="off" value='3'  v-model="rateType" > Per Session
       </label>
-      <label class="btn btn-secondary " :class="rateType == '4'?'active':''" >
+      <label class="btn btn-secondary mb-1" :class="rateType == '4'?'active':''" >
         <input type="radio" name="options" id="fees" autocomplete="off"  value='4' v-model="rateType"> Changing Rates
       </label>
     </div>
@@ -83,7 +83,7 @@ export default {
       }
     },
     methods:{
-  
+
   }
 
   }

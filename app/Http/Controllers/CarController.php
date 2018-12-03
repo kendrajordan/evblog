@@ -8,6 +8,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+
 class CarController extends Controller
 {
     /**
@@ -54,6 +55,9 @@ class CarController extends Controller
         $car->charge_rate = request('charge_rate');
         $car->user_id = \Auth::id();
         $car->save();
+        if($car->save()){
+            $request->session()->flash('status', 'You have added a car!');
+        }
         return redirect()->back();
     }
 
@@ -97,7 +101,8 @@ class CarController extends Controller
         $car->user_id = \Auth::id();
         $car->charge_rate = $request->input('charge_rate');
         $car->save();
-        $request->session()->flash('status', 'You have added a car!');
+        $request->session()->flash('status', 'You have updated a car!');
+
         return redirect('/cars');
     }
 
@@ -107,8 +112,16 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         //
+        $car =Car::find($id);
+        $car->delete();
+        $request->session()->flash('status','Car '.$car->carName.' successfully deleted'.'<a href=cars/'.$car->id.'/restore> UNDO</a>');
+        return redirect('/cars');
+    }
+    public function restore($id){
+      $car = Car::withTrashed()->find($id)->restore();
+         return redirect ('cars');
     }
 }

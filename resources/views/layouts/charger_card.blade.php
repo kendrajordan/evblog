@@ -38,4 +38,3 @@
   <div class="card-footer text-muted text-center">
     Chargers added:{{count($chargers)}}
   </div>
-</div>

@@ -118,8 +118,16 @@ class ChargerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+     public function destroy($id, Request $request)
+     {
+         //
+         $charger =Charger::find($id);
+         $charger->delete();
+         $request->session()->flash('status','Charging Station '.$charger->name.' successfully deleted'.'<a href=chargers/'.$charger->id.'/restore>UNDO</a>');
+         return redirect('/chargers');
+     }
+     public function restore($id){
+       $charger = Charger::withTrashed()->find($id)->restore();
+          return redirect ('chargers');
+     }
 }

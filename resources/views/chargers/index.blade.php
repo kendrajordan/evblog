@@ -3,6 +3,12 @@
 @include('layouts.charger_card')
 <div class ='container'>
   <h1 class='text-center'>Chargers Used</h1>
+  @if (session('status'))
+            <div class="alert alert-{{ session('status_class') ? session('status_class') : 'success' }}" role="alert">
+
+                {!! session('status') !!}
+            </div>
+  @endif
   @foreach ($chargers as $charger)
   <div class="card mt-3 mb-3">
     <div class="card-body">

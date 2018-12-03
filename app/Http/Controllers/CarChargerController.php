@@ -21,8 +21,8 @@ class CarChargerController extends Controller
         //
 
         $car_chargers=CarCharger::orderBy('updated_at', 'desc')->get();
-        $chargers =Charger::orderBy('updated_at', 'desc')->get();
-        $cars =Car::orderBy('updated_at', 'desc')->get();
+        $chargers =Charger::withTrashed()->orderBy('updated_at', 'desc')->get();
+        $cars =Car::withTrashed()->orderBy('updated_at', 'desc')->get();
         $user=\Auth::user();
         return view('chargeLog.index',compact('car_chargers','cars','chargers','user'));
     }
@@ -96,8 +96,8 @@ class CarChargerController extends Controller
         $car = \App\Car::find($request->input('car_id'));
         $charger = \App\Charger::find($request->input('charger_id'));
         $car_chargers=\App\CarCharger::orderBy('updated_at', 'desc')->get();
-        $chargers =Charger::orderBy('updated_at', 'desc')->get();
-        $cars =Car::orderBy('updated_at', 'desc')->get();
+        $chargers =Charger::withTrashed()->orderBy('updated_at', 'desc')->get();
+        $cars =Car::withTrashed()->orderBy('updated_at', 'desc')->get();
         $car_charger=\App\CarCharger::find($id);
         $user=\Auth::user();
         return view('chargeLog.edit',compact('car_charger'));
@@ -127,12 +127,12 @@ class CarChargerController extends Controller
        $car_charger->options= $request->input('options');
        $car_charger->feeoption= $request->input('feeoption');
        $car_charger->start = $request->input('start');
-    //   dd($request->input('start'));
+      // dd($request->input('start'));
        $car_charger->end= $request->input('end');
       // dd($request->input('end'));
        $car_charger->save();
 
-       return redirect('/chargeLogs');
+       return redirect('/chargelogs');
     }
 
     /**
@@ -141,8 +141,16 @@ class CarChargerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         //
+        $car_charger =CarCharger::find($id);
+        $car_charger->delete();
+        $request->session()->flash('status','Charging Session '.$car_charger->id.'successfully deleted <a href=chargelogs/'.$car_charger->id.'/restore>UNDO</a>');
+        return redirect('/chargelogs');
+    }
+    public function restore($id){
+      $car_charger = CarCharger::withTrashed()->find($id)->restore();
+         return redirect ('chargelogs');
     }
 }

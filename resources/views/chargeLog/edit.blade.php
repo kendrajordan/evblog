@@ -16,7 +16,7 @@
           </div>
           <div class="form-group">
             <label for="end">End time of charging session</label>
-            <input class="form-control" type='datetime-local'name='end' id="end" value="{{$car_charger->end != null?$car_charger->end():''}}" >
+            <input class="form-control" type='datetime-local'name='end' id="end" value="{{$car_charger->end != null?$car_charger->timeEnd():''}}" >
           </div>
     </div>
 

@@ -33,6 +33,7 @@ class CreateCarChargerTable extends Migration
           $table->smallInteger('feeoption')->nullable();
           $table->datetime('start');
           $table->datetime('end')->nullable();
+          $table->softDeletes();
           $table->timestamps();
         });
     }

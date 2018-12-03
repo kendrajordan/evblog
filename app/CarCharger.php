@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\DateTime;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CarCharger extends Model
 {
+  use SoftDeletes;
     //
     protected $table = 'car_charger';
     protected $fillable =[
@@ -50,25 +52,23 @@ class CarCharger extends Model
     }
     public function time(){
       $dt = new \DateTime($this->start);
-      $dt->setTimeZone(new \DateTimeZone('UTC'));
       return $dt->format('Y-m-d\TH:i');
     }
-    public function end(){
+    public function timeEnd(){
       $dt = new \DateTime($this->end);
-      $dt->setTimeZone(new \DateTimeZone('UTC'));
       return $dt->format('Y-m-d\TH:i');
     }
     public function user(){
       return $this->belongsTo('\App\User');
     }
     public function car(){
-      return $this->belongsTo('\App\Car');
+      return $this->belongsTo('\App\Car')->withTrashed();
     }
     public function charger(){
-      return $this->belongsTo('\App\Charger');
+      return $this->belongsTo('\App\Charger')->withTrashed();
     }
 
 
 
-  protected $dateFormat = 'm-d-YTH:i:s';
+
 }

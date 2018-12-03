@@ -19,6 +19,11 @@
       <p class="card-text">Select from the lists of charging stations and cars to create a charging session.
         If the charging station or car is not listed then please create one in the forms below or click the
       'My Cars' or 'Visited Charging Stations links to manage them.'</p>
+      @if (session('status'))
+                <div class="alert alert-{{ session('status_class') ? session('status_class') : 'success' }}" role="alert">
+                    {!! session('status') !!}
+                </div>
+      @endif
       <form action="/chargelogs" method="POST">
         {{csrf_field()}}
         <div class="row">
@@ -59,23 +64,18 @@
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Add a car</button>
           <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Add Both</button>
       </p>
-      <div >
-          <div class="col-6">
+      <div class='row '>
+          <div class='col-sm-12 col-md-6'>
             <div class="collapse multi-collapse" id="multiCollapseExample1">
-              <div>
                 @include('layouts.charger_card')
               </div>
-            </div>
           </div>
-          <div class="col-6">
+          <div class='col-sm-12 col-md-6'>
             <div class="collapse multi-collapse" id="multiCollapseExample2">
-              <div>
                 @include('layouts.car_card')
               </div>
-            </div>
-          </div>
         </div>
-
+    </div>
     <div class="card-footer text-muted text-center">
       Charge sessions added:{{count($car_chargers)}}
     </div>
@@ -98,6 +98,9 @@
       </tr>
     </thead>
     <tbody>
+      @if (count($car_chargers) == 0)
+      <h2 class='text-center text-primary'>Try to Create A Charging Session!</h2>
+      @endif
       @foreach ($car_chargers as $car_charger)
       @if ($car_charger->end == null)
        <h2 class='text-center text-danger'>You need to add an end time!</h2>
@@ -106,6 +109,11 @@
 
       @endforeach
     </tbody>
+    <tfoot>
+      <tr>
+
+    </tr>
+    </tfoot>
 </table>
 </div>
 </div>
