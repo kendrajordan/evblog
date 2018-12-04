@@ -19,7 +19,7 @@ class CarController extends Controller
     public function index()
     {
         //
-        $cars =Car::orderBy('updated_at', 'desc')->get();
+        $cars =\Auth::user()->cars()->orderBy('updated_at', 'desc')->get();
         return view('cars.index',compact('cars'));
 
     }

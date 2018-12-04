@@ -18,11 +18,12 @@ class CarChargerController extends Controller
      */
     public function index()
     {
-        //
+        //Seperate data between users
 
-        $car_chargers=CarCharger::orderBy('updated_at', 'desc')->get();
-        $chargers =Charger::withTrashed()->orderBy('updated_at', 'desc')->get();
-        $cars =Car::withTrashed()->orderBy('updated_at', 'desc')->get();
+        $car_chargers=\Auth::user()->car_chargers()->orderBy('updated_at', 'desc')->get();
+
+        $chargers =\Auth::user()->chargers()->withTrashed()->orderBy('updated_at', 'desc')->get();
+        $cars =\Auth::user()->cars()->withTrashed()->orderBy('updated_at', 'desc')->get();
         $user=\Auth::user();
         return view('chargeLog.index',compact('car_chargers','cars','chargers','user'));
     }
