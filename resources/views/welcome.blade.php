@@ -13,7 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-image: url(/6110659344_4825fc6cdb_b.jpg);
+                background-image: url(https://c1cleantechnicacom-wpengine.netdna-ssl.com/files/2017/09/electric-car-fleet.jpg);
                 background-size: cover;
                 height: auto;
                 width: 100%;
@@ -90,7 +90,6 @@
 
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                    <p style="margin:0;">Photo Credit: <a href="https://www.flickr.com/photos/20741443@N00/6110659344/">Ian Muttoo</a> Flickr via <a href="http://compfight.com">Compfight</a> <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/">cc</a></p>
 
                         <a href="{{ route('login') }}">Login</a>
 
