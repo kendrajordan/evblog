@@ -1,14 +1,9 @@
 <template>
       <tr :class='end'>
         <th>
-          <div class="row">
-              <button type='submit' class="btn btn-dark"><a :href="hrefCharge"><i class="fas fa-user-edit text-primary"></i></a></button>
-              <form :action="url" method='POST'>
-                        <input type='hidden' name='_token' :value='token'/>
-                          <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit"class="btn btn-dark"><i class="fas fa-user-minus text-primary"></i></button>
+          <div>
+              <button type='submit' class="btn"><a :href="hrefCharge"><i class="fas fa-wrench" style="font-size: 3em; color: Tomato;"></i></a></button>
 
-              </form>
         </div>
         </th>
         <td>{{date}}</td>
@@ -26,7 +21,7 @@
   props:['date','duration','chargername','carname','charge_rate','kwhs_added','url','hrefCharge','numhrs','options','flat_rate','fee1_kwh','fee1','fee2','feeoption','feetime','rate','end'],
   data:function(){
   return{
-   token: document.head.querySelector('meta[name="csrf-token"]').content,
+  // token: document.head.querySelector('meta[name="csrf-token"]').content,
    hours_charging: this.numhrs,
    alert:this.end,
       }

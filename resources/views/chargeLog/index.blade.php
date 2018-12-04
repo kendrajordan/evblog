@@ -2,8 +2,10 @@
 
 @section('content')
 <div class="card text-center">
-<div class="card-header">
-  My Charge Log
+<div class="card-header d-flex justify-content-between">
+  <a href="/chargers">Manage My Charging Stations</a>
+  <div>My Charge Log</div>
+  <a href="/cars">Manage My Cars</a>
 </div>
     <div class="card-body">
       @if ($errors->any())
@@ -57,7 +59,7 @@
           </div>
 
         </div>
-         <button type="submit" class="btn btn-default">Submit</button>
+         <button type="submit" class="btn btn-default mb-2">Submit</button>
       </form>
       <p class="text-center">
           <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Add a charging station</a>
@@ -82,7 +84,7 @@
   </div>
 
   <h2 class="text-center">Charge Sessions</h2>
-  <div class="table-responsive-sm table-responsive-md ">
+  <div class="table-responsive-sm table-responsive-md table-hover">
   <table class="table">
     <thead>
       <tr>

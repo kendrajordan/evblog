@@ -12,7 +12,7 @@
   @foreach ($cars as $car)
   <div class="card mt-3 mb-3">
     <div class="card-body">
-      <h5 class="card-title">{{$car->carName}}</h5>
+      <a href="/cars/{{$car->id}}"><h5 class="card-title">{{$car->carName}}</h5></a>
       <p class="card-text">Battery Capacity:{{$car->battery_capacity}}</p>
       <p class="card-text">Charge Rate:{{$car->charge_rate}}</p>
     </div>

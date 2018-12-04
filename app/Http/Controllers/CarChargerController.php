@@ -45,7 +45,11 @@ class CarChargerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  $validateData= $request->validate([
+        'start' => 'required',
+        'charger_id'=> 'required',
+        'car_id'=>'required'
+      ]);
       //Create a new charging session
       $car = \App\Car::find($request->input('car_id'));
       $charger = \App\Charger::find($request->input('charger_id'));
@@ -143,14 +147,29 @@ class CarChargerController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        //
+
+      $referer = request()->headers->get('referer');
+        $force_delete = false;
+        if ("/edit" == substr($referer, -5)) {
+            $force_delete = true;
+        }
+        // Find charging session
         $car_charger =CarCharger::find($id);
-        $car_charger->delete();
-        $request->session()->flash('status','Charging Session '.$car_charger->id.'successfully deleted <a href=chargelogs/'.$car_charger->id.'/restore>UNDO</a>');
-        return redirect('/chargelogs');
+        if ($force_delete) {
+        $car_charger->forceDelete();
+     }
+        $request->session()->flash('status', 'Catalogue deleted!');
+        // redirect
+        return redirect()->route('/chargelogs');
+
+        //
+    //    $car_charger =CarCharger::find($id);
+      //  $car_charger->delete();
+      //  $request->session()->flash('status','Charging Session '.$car_charger->id.'successfully deleted <a href=chargelogs/'.$car_charger->id.'/restore>UNDO</a>');
+      //  return redirect('/chargelogs');
     }
-    public function restore($id){
-      $car_charger = CarCharger::withTrashed()->find($id)->restore();
-         return redirect ('chargelogs');
-    }
+  //  public function restore($id){
+    //  $car_charger = CarCharger::withTrashed()->find($id)->restore();
+      //   return redirect ('chargelogs');
+  //  }
 }

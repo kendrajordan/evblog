@@ -70,6 +70,9 @@ class CarController extends Controller
     public function show($id)
     {
         //
+
+        $car=\App\Car::find($id);
+        return view('cars.show',compact('car'));
     }
 
     /**
@@ -122,6 +125,6 @@ class CarController extends Controller
     }
     public function restore($id){
       $car = Car::withTrashed()->find($id)->restore();
-         return redirect ('cars');
+         return redirect ('/cars');
     }
 }

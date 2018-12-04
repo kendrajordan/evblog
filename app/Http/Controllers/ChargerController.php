@@ -72,6 +72,8 @@ class ChargerController extends Controller
     public function show($id)
     {
         //
+        $charger=\App\Charger::find($id);
+        return view('chargers.show',compact('charger'));
     }
 
     /**
@@ -128,6 +130,6 @@ class ChargerController extends Controller
      }
      public function restore($id){
        $charger = Charger::withTrashed()->find($id)->restore();
-          return redirect ('chargers');
+          return redirect ('/chargers');
      }
 }

@@ -1,6 +1,8 @@
 <div class="card text-center">
-  <div class="card-header">
-    My Cars
+  <div class="card-header d-flex justify-content-between">
+    <a href="/chargelogs">Mange Charge Sessions</a>
+    <div>My Cars</div>
+    <a href="/chargers">Mange Charging Stations</a>
   </div>
   <div class="card-body">
     @if ($errors->any())

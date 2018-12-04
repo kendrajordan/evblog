@@ -48,7 +48,22 @@
               <input class="form-control" type='text'name='vehicle_charge_rate' id="vehicle_charge_rate" value="{{$car_charger->vehicle_charge_rate}}">
             </div>
       </div>
-       <button type="submit" class="btn btn-default">Submit</button>
+      <div class='d-flex justify-content-around'>
+        <div >
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+        <div>
+          <a href="{{ URL::previous() }}" type="button " class="btn btn-light border border-primary">Cancel</a>
+        </div>
+        <div>
+         <form action='{{url("/chargelogs",$car_charger->id)}}' method='POST'>
+           @csrf
+           {{ method_field('DELETE') }}
+                   <button type="submit"class="btn btn-danger">DELETE</button>
+
+         </form>
+      </div>
+     </div>
     </form>
 </div>
 @endsection

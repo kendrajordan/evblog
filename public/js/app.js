@@ -47481,17 +47481,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['date', 'duration', 'chargername', 'carname', 'charge_rate', 'kwhs_added', 'url', 'hrefCharge', 'numhrs', 'options', 'flat_rate', 'fee1_kwh', 'fee1', 'fee2', 'feeoption', 'feetime', 'rate', 'end'],
   data: function data() {
     return {
-      token: document.head.querySelector('meta[name="csrf-token"]').content,
+      // token: document.head.querySelector('meta[name="csrf-token"]').content,
       hours_charging: this.numhrs,
       alert: this.end
     };
@@ -47631,28 +47626,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", { class: _vm.end }, [
     _c("th", [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-dark", attrs: { type: "submit" } },
-          [
-            _c("a", { attrs: { href: _vm.hrefCharge } }, [
-              _c("i", { staticClass: "fas fa-user-edit text-primary" })
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("form", { attrs: { action: _vm.url, method: "POST" } }, [
-          _c("input", {
-            attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.token }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            attrs: { type: "hidden", name: "_method", value: "DELETE" }
-          }),
-          _vm._v(" "),
-          _vm._m(0)
+      _c("div", [
+        _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
+          _c("a", { attrs: { href: _vm.hrefCharge } }, [
+            _c("i", {
+              staticClass: "fas fa-wrench",
+              staticStyle: { "font-size": "3em", color: "Tomato" }
+            })
+          ])
         ])
       ])
     ]),
@@ -47674,18 +47655,7 @@ var render = function() {
     _c("td", [_vm._v(_vm._s(_vm.costOptions(this.options)))])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-dark", attrs: { type: "submit" } },
-      [_c("i", { staticClass: "fas fa-user-minus text-primary" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
