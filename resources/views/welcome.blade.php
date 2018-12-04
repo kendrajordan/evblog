@@ -14,6 +14,9 @@
         <style>
             html, body {
                 background-image: url(https://c1cleantechnicacom-wpengine.netdna-ssl.com/files/2017/09/electric-car-fleet.jpg);
+                background-repeat:no-repeat;
+                background-size:contain;
+                background-position:center;
                 background-size: cover;
                 height: auto;
                 width: 100%;
