@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div class="d-flex justify-content-between bg-secondary"><a href="/chargelogs" class="btn btn-primary col-md-6">Manage Charge Sessions</a><a class="btn btn-primary col-md-6" href="/cars">Manage Cars</a></div>
 @include('layouts.charger_card')
 <div class ='container'>
   <h1 class='text-center'>Chargers Used</h1>

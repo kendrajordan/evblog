@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="d-flex justify-content-between bg-secondary"><a href="/chargers" class="btn btn-primary col-md-6">Manage Charging Stations</a><a class="btn btn-primary col-md-6" href="/cars">Manage Cars</a></div>
+
 <div class="card text-center">
-<div class="card-header d-flex justify-content-between">
-  <a href="/chargers">Manage My Charging Stations</a>
+<div class="card-header">
+
   <div>My Charge Log</div>
-  <a href="/cars">Manage My Cars</a>
+
 </div>
     <div class="card-body">
       @if ($errors->any())

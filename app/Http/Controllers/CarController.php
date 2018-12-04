@@ -49,6 +49,7 @@ class CarController extends Controller
           'battery_capacity'=>'required',
           'charge_rate'=>'required'
         ]);
+
         $car = new Car();
         $car->carName = request('carName');
         $car->battery_capacity = request('battery_capacity');

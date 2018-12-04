@@ -1,8 +1,6 @@
 <div class="card text-center">
-  <div class="card-header d-flex justify-content-between">
-    <a href="/chargelogs">Mange Charge Sessions</a>
+  <div class="card-header">
     <div>My Cars</div>
-    <a href="/chargers">Mange Charging Stations</a>
   </div>
   <div class="card-body">
     @if ($errors->any())
@@ -36,4 +34,5 @@
   <div class="card-footer text-muted">
     Cars added:{{count($cars)}}
   </div>
+
 </div>

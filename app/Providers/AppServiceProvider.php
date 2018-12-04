@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
            if(env('APP_ENV') == 'production') {
              \URL::forceScheme('https');
            }
+
        }
 
     /**
