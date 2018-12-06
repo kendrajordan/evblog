@@ -56,14 +56,15 @@
           <a href="{{ URL::previous() }}" type="button " class="btn btn-light border border-primary">Cancel</a>
         </div>
         <div>
-         <form action='{{url("/chargelogs",$car_charger->id)}}' method='POST'>
-           @csrf
-           {{ method_field('DELETE') }}
-                   <button type="submit"class="btn btn-danger">DELETE</button>
 
-         </form>
       </div>
      </div>
+    </form>
+    <form action='{{url("/chargelogs",$car_charger->id)}}' method='POST'>
+      @csrf
+      {{ method_field('DELETE') }}
+              <button type="submit"class="btn btn-danger">DELETE</button>
+
     </form>
 </div>
 @endsection

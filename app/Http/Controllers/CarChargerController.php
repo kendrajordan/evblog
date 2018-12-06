@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\User;
 use App\Car;
@@ -19,15 +18,12 @@ class CarChargerController extends Controller
     public function index()
     {
         //Seperate data between users
-
         $car_chargers=\Auth::user()->car_chargers()->orderBy('updated_at', 'desc')->get();
-
         $chargers =\Auth::user()->chargers()->withTrashed()->orderBy('updated_at', 'desc')->get();
         $cars =\Auth::user()->cars()->withTrashed()->orderBy('updated_at', 'desc')->get();
         $user=\Auth::user();
         return view('chargeLog.index',compact('car_chargers','cars','chargers','user'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +34,6 @@ class CarChargerController extends Controller
         //
         return 'This is where my charge log form will go.';
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -75,9 +70,7 @@ class CarChargerController extends Controller
       $car_charger->save();
       $request->session()->flash('status', 'You have added a charging session!');
       return redirect()->back();
-
     }
-
     /**
      * Display the specified resource.
      *
@@ -88,7 +81,6 @@ class CarChargerController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -107,7 +99,6 @@ class CarChargerController extends Controller
         $user=\Auth::user();
         return view('chargeLog.edit',compact('car_charger'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -136,10 +127,8 @@ class CarChargerController extends Controller
        $car_charger->end= $request->input('end');
       // dd($request->input('end'));
        $car_charger->save();
-
-       return redirect('/chargelogs');
+       return redirect('chargelogs');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -148,7 +137,6 @@ class CarChargerController extends Controller
      */
     public function destroy($id, Request $request)
     {
-
       $referer = request()->headers->get('referer');
         $force_delete = false;
         if ("/edit" == substr($referer, -5)) {
@@ -161,8 +149,7 @@ class CarChargerController extends Controller
      }
         $request->session()->flash('status', 'Catalogue deleted!');
         // redirect
-        return redirect()->route('/chargelogs');
-
+        return redirect('/chargelogs');
         //
     //    $car_charger =CarCharger::find($id);
       //  $car_charger->delete();
