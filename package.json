@@ -29,7 +29,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "ajv": "^6.5.5",
+    "ajv": "^6.12.3",
     "composer": "^4.1.0",
     "imagemin": "^5.3.1"
   }
